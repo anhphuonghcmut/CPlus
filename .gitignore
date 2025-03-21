@@ -1,0 +1,56 @@
+# Build artifacts
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.log
+*.csproj.user
+*.suo
+*.user
+*.ttf
+*.tmp
+
+# Visual Studio files
+.vs/
+*.sln.ide
+*.sln.docstates
+
+# Rider and VSCode settings
+.idea/
+.vscode/
+
+# Packages and Dependencies
+packages/
+node_modules/
+!packages/repositories.config
+
+# NuGet packages
+*.nupkg
+project.lock.json
+project.assets.json
+
+# Resharper and StyleCop
+*.DotSettings.user
+_Resharper.Caches/
+
+# Entity Framework Migrations
+Migrations/
+
+# ASP.NET Specific
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+secrets.json
+
+# Logs and Temporary Files
+logs/
+*.log
+*.tlog
+TestResults/
+
+
+# ANTLR
+.antlr/
