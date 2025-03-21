@@ -2,7 +2,7 @@
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 
-internal class Program
+public class Program
 {
     static void Main(string[] args)
     {
@@ -37,6 +37,32 @@ internal class Program
         catch (Exception ex)
         {
             Console.WriteLine($"Error reading file: {ex.Message}");
+        }
+
+        var generateAST = GenerateAST(filePath);
+        Console.WriteLine(generateAST.Stringify());
+        Console.ReadKey();
+    }
+
+    public static CPlusAST GenerateAST(string filePath)
+    {
+        try
+        {
+            var inputStream = new AntlrFileStream(filePath);
+
+            var lexer = new CPlusLexer(inputStream);
+            var tokens = new CommonTokenStream(lexer);
+            var parser = new CPlusParser(tokens);
+
+            IParseTree tree = parser.program();
+            var visitor = new CPlusASTVisitor();
+            var program = visitor.Visit(tree);
+            return program;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error xreading file: {ex.Message}");
+            return new ProgramDecl();
         }
     }
 }

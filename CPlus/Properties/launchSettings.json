@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CPlus": {
+      "commandName": "Project",
+      "commandLineArgs": ".\\LexerTests\\test1.txt"
+    }
+  }
+}
