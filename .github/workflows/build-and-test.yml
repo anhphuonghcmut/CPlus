@@ -1,0 +1,29 @@
+name: Build and Test C# Project
+
+on:
+  push:
+    branches: [ develop, master ]  # Run on pushes to main or master
+  pull_request:
+    branches: [ develop, master ]  # Run on pull requests
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # Runs on a free GitHub-hosted Linux VM
+
+    steps:
+      - name: 🛎️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🔧 Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x  # Change based on your project
+
+      - name: 📦 Restore dependencies
+        run: dotnet restore
+
+      - name: 🏗️ Build project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: 🧪 Run tests
+        run: dotnet test --configuration Release --no-build --verbosity normal
