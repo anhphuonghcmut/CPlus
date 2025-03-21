@@ -34,8 +34,10 @@ dotnet restore
 # Generate ANTLR parser
 antlr4 -Dlanguage=CSharp -visitor CPlus.g4 -o Generated
 
-# Run the compiler
-dotnet run -- input.cplus
+# Build the project or publish to a folder
+
+# Run the compiler with terminal
+.\CPlus.exe "{your_file_path}"
 ```
 
 ## 🏗️ Usage

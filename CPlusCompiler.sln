@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPlus", "CPlus.csproj", "{BB3A1EFF-FC00-4E50-A170-D5DD3109A8B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CPlus", ".\CPlus\CPlus.csproj", "{BB3A1EFF-FC00-4E50-A170-D5DD3109A8B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPlusTest", "..\CPlusTest\CPlusTest.csproj", "{DD1F7DEC-C785-4E9F-A85C-DD66C1445EA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CPlusTest", ".\CPlusTest\CPlusTest.csproj", "{DD1F7DEC-C785-4E9F-A85C-DD66C1445EA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
