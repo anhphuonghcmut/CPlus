@@ -32,7 +32,7 @@ cd CPlus
 dotnet restore
 
 # Generate ANTLR parser
-antlr4 -Dlanguage=CSharp -visitor CPlus.g4 -o Generated
+java -jar ./antlr-4.13.1.jar -Dlanguage=CSharp -visitor CPlus.g4 -o Generated
 
 # Build the project or publish to a folder
 
