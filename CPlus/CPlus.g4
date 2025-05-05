@@ -13,7 +13,7 @@ members: (field_decl | method_decl);
 
 /**** Field ****/
 field_decl: (PUBLIC | PRIVATE)? var_decl;
-var_decl: data_type attribute SM;
+var_decl: IMMUTABLE? data_type attribute SM;
 
 
 method_decl: (PUBLIC | PRIVATE)? data_type ID LB parameter RB method_body;
@@ -99,6 +99,7 @@ BOOLEAN: 'boolean';
 CLASS: 'class';
 PUBLIC: 'public';
 PRIVATE: 'private';
+IMMUTABLE: 'immut';
 FLOAT: 'float';
 INT: 'int';
 NEW: 'new';
