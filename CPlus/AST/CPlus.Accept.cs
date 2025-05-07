@@ -24,6 +24,31 @@
         }
     }
 
+    public partial class StoreDecl
+    {
+        public override TResult Accept<TResult>(IASTVisitor<TResult> visitor, CompileEnviroment env)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public partial class Modifier
+    {
+        public override TResult Accept<TResult>(IASTVisitor<TResult> visitor, CompileEnviroment env)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+    public partial class Statement
+    {
+        public override TResult Accept<TResult>(IASTVisitor<TResult> visitor, CompileEnviroment env)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 
 
 
@@ -34,4 +59,12 @@
             throw new NotImplementedException();
         }
     }
+    public partial class DataType
+    {
+        public override TResult Accept<TResult>(IASTVisitor<TResult> visitor, CompileEnviroment env)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 }

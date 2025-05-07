@@ -1,6 +1,7 @@
 ﻿using CPlus;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using CPlusAST;
 
 public class Program
 {
@@ -31,7 +32,7 @@ public class Program
             IParseTree tree = parser.program();
             var visitor = new CPlusASTVisitor();
             var program = visitor.Visit(tree);
-            Console.WriteLine(program.Stringify());
+            Console.WriteLine(program.ToString());
             Console.ReadKey();
         }
         catch (Exception ex)
@@ -40,11 +41,11 @@ public class Program
         }
 
         var generateAST = GenerateAST(filePath);
-        Console.WriteLine(generateAST.Stringify());
+        Console.WriteLine(generateAST.ToString());
         Console.ReadKey();
     }
 
-    public static CPlusAST GenerateAST(string filePath)
+    public static AST GenerateAST(string filePath)
     {
         try
         {
@@ -61,8 +62,8 @@ public class Program
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error xreading file: {ex.Message}");
-            return new ProgramDecl();
+            Console.WriteLine($"Error reading file: {ex.Message}");
+            return new CPlusAST.Program();
         }
     }
 }

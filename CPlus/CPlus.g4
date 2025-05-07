@@ -16,7 +16,7 @@ field_decl: (PUBLIC | PRIVATE)? var_decl;
 var_decl: IMMUTABLE? data_type attribute SM;
 
 
-method_decl: (PUBLIC | PRIVATE)? data_type ID LB parameter RB method_body;
+method_decl: (PUBLIC | PRIVATE)? (data_type | VOID) ID LB parameter RB method_body;
 method_body: LP var_decl* statement* RP;
 
 
@@ -38,7 +38,8 @@ expr9:
 	expr9 DOT ID (LB list_of_expr? RB)?
 	| ID DOT ID (LB list_of_expr? RB)?
 	| expr10;
-expr10: NEW ID LB (list_of_expr)? RB expr10? | expr11;
+//expr10: NEW ID LB (list_of_expr)? RB expr10? | expr11; // TODO: handle constructor
+expr10: NEW ID LB RB expr10? | expr11;
 //expr11: LB expr RB | ID | literal | THIS | NIL;
 expr11: LB expr RB | ID | literal;
 list_of_expr: expr (CM expr)*;
@@ -55,9 +56,9 @@ statement:
 	| method_invocation_statement;
 assignment_statement: (ID | expr8) ASSIGN expr SM;
 return_statement: RETURN expr SM;
+method_invocation_statement: member_access SM;
 member_access: (ID | expr) DOT ID LB list_of_expr? RB;
 
-method_invocation_statement: member_access SM;
 
 /****************************************************************************/
 /*																	 		*/
