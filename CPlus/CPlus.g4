@@ -35,8 +35,8 @@ expr6: NOT expr6 | expr7;
 expr7: ( ADD | SUB) expr7 | expr8;
 expr8: expr9 LSB expr RSB | expr9;
 expr9:
-	expr9 DOT ID (LB list_of_expr? RB)?
-	| ID DOT ID (LB list_of_expr? RB)?
+	expr9 DOT ID (LB list_of_expr? RB)? // Method call
+	| ID DOT ID (LB list_of_expr? RB)?  // Method call
 	| expr10;
 //expr10: NEW ID LB (list_of_expr)? RB expr10? | expr11; // TODO: handle constructor
 expr10: NEW ID LB RB expr10? | expr11;
@@ -79,9 +79,8 @@ class_type: ID; //test
 /****************************************************************************/
 
 attribute: ID (ASSIGN expr)?;
-parameter: data_type ID idlist parameter_list |;
-parameter_list: SM data_type ID idlist parameter_list |;
-idlist: CM ID (ASSIGN expr)? idlist |;
+parameter: data_type ID parameter_list* |;
+parameter_list: SM data_type ID;
 
 
 /****************************************************************************/

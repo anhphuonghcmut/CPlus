@@ -2,7 +2,15 @@
 {
     public abstract class AST
     {
+        public int Line { get; set; }
+        public int Column { get; set; }
         public abstract TResult Accept<TResult>(IASTVisitor<TResult> visitor, CompileEnviroment env);
+        public AST SetPosition((int, int) lineAndCol)
+        {
+            Line = lineAndCol.Item1;
+            Column = lineAndCol.Item2;
+            return this;
+        }
     }
 
     public partial class Program : AST
@@ -44,13 +52,19 @@
 
     public partial class MethodDecl : Member
     {
-        public MethodDecl(Modifier methodModifier, IEnumerable<StoreDecl> decls, IEnumerable<Statement> statements)
+        public MethodDecl(Modifier methodModifier, DataType returnType, ID name, IEnumerable<VarDecl> paramss, IEnumerable<StoreDecl> decls, IEnumerable<Statement> statements)
         {
             MethodModifier = methodModifier;
+            ReturnType = returnType;
+            Name = name;
+            Params = paramss;
             Decls = decls;
             Statements = statements;
         }
         public Modifier MethodModifier { get; set; }
+        public ID Name { get; set; }
+        public IEnumerable<VarDecl> Params { get; set; }
+        public DataType ReturnType { get; set; }
         public IEnumerable<StoreDecl> Decls { get; set; }
         public IEnumerable<Statement> Statements { get; set; }
 
@@ -67,7 +81,7 @@
         }
         public DataType DataType { get; set; }
         public ID Name { get; set; }
-        public Expression Value { get; set; }
+        public Expression? Value { get; set; }
 
     }
     public partial class ConstDecl : StoreDecl
@@ -80,7 +94,7 @@
         }
         public DataType DataType { get; set; }
         public ID Name { get; set; }
-        public Expression Value { get; set; }
+        public Expression? Value { get; set; }
     }
 
 

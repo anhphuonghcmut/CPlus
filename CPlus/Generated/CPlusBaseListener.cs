@@ -276,18 +276,6 @@ public partial class CPlusBaseListener : ICPlusListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitReturn_statement([NotNull] CPlusParser.Return_statementContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CPlusParser.member_access"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMember_access([NotNull] CPlusParser.Member_accessContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="CPlusParser.member_access"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMember_access([NotNull] CPlusParser.Member_accessContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="CPlusParser.method_invocation_statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -299,6 +287,18 @@ public partial class CPlusBaseListener : ICPlusListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitMethod_invocation_statement([NotNull] CPlusParser.Method_invocation_statementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.member_access"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMember_access([NotNull] CPlusParser.Member_accessContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.member_access"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMember_access([NotNull] CPlusParser.Member_accessContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="CPlusParser.data_type"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -407,18 +407,6 @@ public partial class CPlusBaseListener : ICPlusListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitParameter_list([NotNull] CPlusParser.Parameter_listContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="CPlusParser.idlist"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterIdlist([NotNull] CPlusParser.IdlistContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="CPlusParser.idlist"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitIdlist([NotNull] CPlusParser.IdlistContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

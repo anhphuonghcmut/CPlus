@@ -231,16 +231,6 @@ public interface ICPlusListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitReturn_statement([NotNull] CPlusParser.Return_statementContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CPlusParser.member_access"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterMember_access([NotNull] CPlusParser.Member_accessContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="CPlusParser.member_access"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitMember_access([NotNull] CPlusParser.Member_accessContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="CPlusParser.method_invocation_statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -250,6 +240,16 @@ public interface ICPlusListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitMethod_invocation_statement([NotNull] CPlusParser.Method_invocation_statementContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.member_access"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMember_access([NotNull] CPlusParser.Member_accessContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.member_access"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMember_access([NotNull] CPlusParser.Member_accessContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="CPlusParser.data_type"/>.
 	/// </summary>
@@ -340,14 +340,4 @@ public interface ICPlusListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitParameter_list([NotNull] CPlusParser.Parameter_listContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="CPlusParser.idlist"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterIdlist([NotNull] CPlusParser.IdlistContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="CPlusParser.idlist"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitIdlist([NotNull] CPlusParser.IdlistContext context);
 }

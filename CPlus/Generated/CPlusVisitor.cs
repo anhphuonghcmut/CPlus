@@ -152,17 +152,17 @@ public interface ICPlusVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitReturn_statement([NotNull] CPlusParser.Return_statementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CPlusParser.member_access"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitMember_access([NotNull] CPlusParser.Member_accessContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="CPlusParser.method_invocation_statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitMethod_invocation_statement([NotNull] CPlusParser.Method_invocation_statementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CPlusParser.member_access"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMember_access([NotNull] CPlusParser.Member_accessContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="CPlusParser.data_type"/>.
 	/// </summary>
@@ -217,10 +217,4 @@ public interface ICPlusVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitParameter_list([NotNull] CPlusParser.Parameter_listContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="CPlusParser.idlist"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitIdlist([NotNull] CPlusParser.IdlistContext context);
 }

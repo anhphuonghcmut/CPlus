@@ -63,7 +63,7 @@ public class Program
         catch (Exception ex)
         {
             Console.WriteLine($"Error reading file: {ex.Message}");
-            return new CPlusAST.Program();
+            return new CPlusAST.Program(new List<ClassDecl>());
         }
     }
 }
