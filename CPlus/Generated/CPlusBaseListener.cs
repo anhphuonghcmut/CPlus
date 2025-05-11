@@ -60,6 +60,42 @@ public partial class CPlusBaseListener : ICPlusListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitClass_decl([NotNull] CPlusParser.Class_declContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.members"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMembers([NotNull] CPlusParser.MembersContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.members"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMembers([NotNull] CPlusParser.MembersContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.field_decl"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterField_decl([NotNull] CPlusParser.Field_declContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.field_decl"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitField_decl([NotNull] CPlusParser.Field_declContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.var_decl"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVar_decl([NotNull] CPlusParser.Var_declContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.var_decl"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVar_decl([NotNull] CPlusParser.Var_declContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="CPlusParser.method_decl"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -72,29 +108,209 @@ public partial class CPlusBaseListener : ICPlusListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitMethod_decl([NotNull] CPlusParser.Method_declContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CPlusParser.type"/>.
+	/// Enter a parse tree produced by <see cref="CPlusParser.method_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterType([NotNull] CPlusParser.TypeContext context) { }
+	public virtual void EnterMethod_body([NotNull] CPlusParser.Method_bodyContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CPlusParser.type"/>.
+	/// Exit a parse tree produced by <see cref="CPlusParser.method_body"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitType([NotNull] CPlusParser.TypeContext context) { }
+	public virtual void ExitMethod_body([NotNull] CPlusParser.Method_bodyContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CPlusParser.numeric_type"/>.
+	/// Enter a parse tree produced by <see cref="CPlusParser.statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNumeric_type([NotNull] CPlusParser.Numeric_typeContext context) { }
+	public virtual void EnterStatement([NotNull] CPlusParser.StatementContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CPlusParser.numeric_type"/>.
+	/// Exit a parse tree produced by <see cref="CPlusParser.statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNumeric_type([NotNull] CPlusParser.Numeric_typeContext context) { }
+	public virtual void ExitStatement([NotNull] CPlusParser.StatementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.assignment_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAssignment_statement([NotNull] CPlusParser.Assignment_statementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.assignment_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAssignment_statement([NotNull] CPlusParser.Assignment_statementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.return_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterReturn_statement([NotNull] CPlusParser.Return_statementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.return_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitReturn_statement([NotNull] CPlusParser.Return_statementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.method_invocation_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMethod_invocation_statement([NotNull] CPlusParser.Method_invocation_statementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.method_invocation_statement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMethod_invocation_statement([NotNull] CPlusParser.Method_invocation_statementContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.member_access"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMember_access([NotNull] CPlusParser.Member_accessContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.member_access"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMember_access([NotNull] CPlusParser.Member_accessContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpr([NotNull] CPlusParser.ExprContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpr([NotNull] CPlusParser.ExprContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.expr3"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpr3([NotNull] CPlusParser.Expr3Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.expr3"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpr3([NotNull] CPlusParser.Expr3Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.expr4"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpr4([NotNull] CPlusParser.Expr4Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.expr4"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpr4([NotNull] CPlusParser.Expr4Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.expr6"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpr6([NotNull] CPlusParser.Expr6Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.expr6"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpr6([NotNull] CPlusParser.Expr6Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.expr7"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpr7([NotNull] CPlusParser.Expr7Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.expr7"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpr7([NotNull] CPlusParser.Expr7Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.expr9"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpr9([NotNull] CPlusParser.Expr9Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.expr9"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpr9([NotNull] CPlusParser.Expr9Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.expr10"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpr10([NotNull] CPlusParser.Expr10Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.expr10"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpr10([NotNull] CPlusParser.Expr10Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.expr11"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpr11([NotNull] CPlusParser.Expr11Context context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.expr11"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpr11([NotNull] CPlusParser.Expr11Context context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.list_of_expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterList_of_expr([NotNull] CPlusParser.List_of_exprContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.list_of_expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitList_of_expr([NotNull] CPlusParser.List_of_exprContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.data_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterData_type([NotNull] CPlusParser.Data_typeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.data_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitData_type([NotNull] CPlusParser.Data_typeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.type_not_void"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterType_not_void([NotNull] CPlusParser.Type_not_voidContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.type_not_void"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitType_not_void([NotNull] CPlusParser.Type_not_voidContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="CPlusParser.string_type"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -120,17 +336,65 @@ public partial class CPlusBaseListener : ICPlusListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitBool_type([NotNull] CPlusParser.Bool_typeContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CPlusParser.void_type"/>.
+	/// Enter a parse tree produced by <see cref="CPlusParser.literal"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterVoid_type([NotNull] CPlusParser.Void_typeContext context) { }
+	public virtual void EnterLiteral([NotNull] CPlusParser.LiteralContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CPlusParser.void_type"/>.
+	/// Exit a parse tree produced by <see cref="CPlusParser.literal"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitVoid_type([NotNull] CPlusParser.Void_typeContext context) { }
+	public virtual void ExitLiteral([NotNull] CPlusParser.LiteralContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.class_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterClass_type([NotNull] CPlusParser.Class_typeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.class_type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitClass_type([NotNull] CPlusParser.Class_typeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.attribute"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAttribute([NotNull] CPlusParser.AttributeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.attribute"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAttribute([NotNull] CPlusParser.AttributeContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.parameter"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterParameter([NotNull] CPlusParser.ParameterContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.parameter"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitParameter([NotNull] CPlusParser.ParameterContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CPlusParser.parameter_list"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterParameter_list([NotNull] CPlusParser.Parameter_listContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CPlusParser.parameter_list"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitParameter_list([NotNull] CPlusParser.Parameter_listContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

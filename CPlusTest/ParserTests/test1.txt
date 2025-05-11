@@ -1,4 +1,6 @@
 ﻿class A { 
-	public void Test {} 
-	private int abc {}
+	public void Test() {} 
+	private int abc() {}
+	int a = 10;
+	float b = 100;
 }
