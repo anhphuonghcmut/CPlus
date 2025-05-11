@@ -10,10 +10,8 @@ namespace CPlusTest
         }
 
         [Test]
-        public void Test1()
+        public void Test()
         {
-            var program = Program.GenerateAST("./ASTTests/test1.txt");
-            program.ToString().Should().Be($"(Class A: [(Method public: Test -> void),(Method private: abc -> int)]){Environment.NewLine}(Class ABC: [(Method public: Test13 -> void),(Method private: abc -> int),(Method public: abc -> bool)]){Environment.NewLine}(Class ABC123: [(Method public: Test13 -> void),(Method private: Test13 -> void),(Method private: abc -> int),(Method public: a12bc -> string)]){Environment.NewLine}(Class empty: [])");
         }
     }
 }

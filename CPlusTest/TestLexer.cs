@@ -1,5 +1,6 @@
 using Antlr4.Runtime;
 using CPlus;
+using CPlus.Exceptions;
 using FluentAssertions;
 
 namespace CPlusTest
@@ -12,7 +13,7 @@ namespace CPlusTest
         }
 
         [Test]
-        public void Test1()
+        public void TestLegalToken()
         {
             var inputStream = new AntlrFileStream("./LexerTests/test1.txt");
             var lexer = new CPlusLexer(inputStream);
@@ -28,20 +29,27 @@ namespace CPlusTest
         }
 
         [Test]
-        public void Test2()
+        public void TestErrorToken()
         {
             var inputStream = new AntlrFileStream("./LexerTests/test2.txt");
             var lexer = new CPlusLexer(inputStream);
             var tokens = new CommonTokenStream(lexer);
 
-            lexer.RemoveErrorListeners();
-            var errorListener = new LexerErrorListener();
-            lexer.AddErrorListener(errorListener);
+            //tokens.Fill();
+            Action act = () => tokens.Fill();
+            act.Should().Throw<ErrorTokenException>();
+        }
 
-            tokens.Fill();
+        [Test]
+        public void TestUnclosedString()
+        {
+            var inputStream = new AntlrFileStream("./LexerTests/test3.txt");
+            var lexer = new CPlusLexer(inputStream);
+            var tokens = new CommonTokenStream(lexer);
 
-            errorListener.Errors.Count.Should().Be(1);
-            errorListener.Errors[0].Should().Be("Line 3:13 token recognition error at: '1'");
+            //tokens.Fill();
+            Action act = () => tokens.Fill();
+            act.Should().Throw<UncloseStringException>();
         }
     }
 }

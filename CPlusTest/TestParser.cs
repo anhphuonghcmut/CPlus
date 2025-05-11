@@ -12,10 +12,11 @@ namespace CPlusTest
         {
         }
 
-        [Test]
-        public void Test1()
+        [TestCase("test1.txt", TestName = "TestCheckTestsShouldRun")]
+        [TestCase("test2.txt", TestName = "TestMemberDecls")]
+        public void TestCases(string filename)
         {
-            var inputStream = new AntlrFileStream("./ParserTests/test1.txt");
+            var inputStream = new AntlrFileStream($"./ParserTests/{filename}");
             var lexer = new CPlusLexer(inputStream);
             var tokens = new CommonTokenStream(lexer);
 

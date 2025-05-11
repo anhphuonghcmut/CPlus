@@ -1,4 +1,35 @@
 ﻿class A { 
-	public void Test {} 
+	public void Test {} void "stribfbfbf" # inline comment
+	/* block comment
+
+	asdkjsakdjsad
+	jskadasdj
+	@@@@@@
+	()()()((((()(((
+	+++_)))))))
+
+
+
+	$$$$!%@!@&*#$&^^@(#()) */
 	private int abc {}
+
+	void int float sting 
+
+
+	class private
+
+
+	1213123.213213123213 21321312. 0.
+
+
+	true false
+
+	0 1 2 3 4 5 6 7 8 9
+
+	immut
 }
+
+
+
+
+

@@ -1,4 +1,4 @@
 ﻿class A { 
 	public void Test {} 
-	private int @@ {}
+	int a = "essssss;
 }
