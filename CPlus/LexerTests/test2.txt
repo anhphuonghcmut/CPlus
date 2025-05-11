@@ -1,4 +1,1 @@
-﻿class A { 
-	public void Test {} 
-	private int 1abc {}
-}
+﻿

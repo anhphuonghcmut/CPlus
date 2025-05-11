@@ -23,47 +23,28 @@ public class Program
 
         try
         {
-            var inputStream = new AntlrFileStream(filePath);
-
-            var lexer = new CPlusLexer(inputStream);
-            var tokens = new CommonTokenStream(lexer);
-            var parser = new CPlusParser(tokens);
-
-            IParseTree tree = parser.program();
-            var visitor = new CPlusASTVisitor();
-            var program = visitor.Visit(tree);
-            Console.WriteLine(program.ToString());
-            Console.ReadKey();
+            var generateAST = GenerateAST(filePath);
+            Console.WriteLine(generateAST.ToString());
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error reading file: {ex.Message}");
+        catch (Exception ex) { 
+            Console.WriteLine(ex.Message);
         }
-
-        var generateAST = GenerateAST(filePath);
-        Console.WriteLine(generateAST.ToString());
         Console.ReadKey();
     }
 
     public static AST GenerateAST(string filePath)
     {
-        try
-        {
-            var inputStream = new AntlrFileStream(filePath);
+        var inputStream = new AntlrFileStream(filePath);
 
-            var lexer = new CPlusLexer(inputStream);
-            var tokens = new CommonTokenStream(lexer);
-            var parser = new CPlusParser(tokens);
+        var lexer = new CPlusLexer(inputStream);
+        var tokens = new CommonTokenStream(lexer);
+        var parser = new CPlusParser(tokens);
+        // Throw error if rules aren't respect
+        parser.ErrorHandler = new StrictErrorStrategy();
 
-            IParseTree tree = parser.program();
-            var visitor = new CPlusASTVisitor();
-            var program = visitor.Visit(tree);
-            return program;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error reading file: {ex.Message}");
-            return new CPlusAST.Program(new List<ClassDecl>());
-        }
+        IParseTree tree = parser.program();
+        var visitor = new CPlusASTVisitor();
+        var program = visitor.Visit(tree);
+        return program;
     }
 }

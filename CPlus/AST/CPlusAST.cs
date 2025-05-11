@@ -198,6 +198,10 @@
         }
         public bool Value { get; set; }
     }
+    public partial class ThisLiteral : Literal
+    {
+
+    }
 
 
     public partial class Assign : Statement
@@ -216,11 +220,11 @@
         {
             Expression = expression;
         }
-        public Expression Expression { get; set; }
+        public Expression? Expression { get; set; }
     }
-    public partial class CallMethod : Statement
+    public partial class CallMethodStmt : Statement
     {
-        public CallMethod(Expression obj, ID method, IEnumerable<Expression> @params)
+        public CallMethodStmt(Expression obj, ID method, IEnumerable<Expression> @params)
         {
             Obj = obj;
             Method = method;
@@ -251,5 +255,12 @@
     public partial class BooleanType : DataType { }
     public partial class StringType : DataType { }
     public partial class VoidType : DataType { }
-    public partial class ClassType : DataType { }
+    public partial class ClassType : DataType {
+        public ClassType(ID className)
+        {
+            ClassName = className;
+        }
+
+        public ID ClassName { get; set; }
+    }
 }

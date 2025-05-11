@@ -4,7 +4,7 @@
     {
         public override string ToString()
         {
-            return $"Program([{string.Join(", ", ClassDecls.Select(cd => cd.ToString()))}])";
+            return $"{string.Join(Environment.NewLine, ClassDecls.Select(cd => cd.ToString()))}";
         }
     }
 
@@ -12,7 +12,7 @@
     {
         public override string ToString()
         {
-            return $"ClassDecl({Name?.ToString()}, {Members?.ToString()})";
+            return $"ClassDecl({Name?.ToString()}, {string.Join(", ", Members.Select(cd => cd.ToString()))})";
         }
     }
 
@@ -44,7 +44,10 @@
     {
         public override string ToString()
         {
-            return $"MethodDecl({MethodModifier?.ToString()}, [{string.Join(", ", Decls.Select(cd => cd.ToString()))}], [{string.Join(", ", Statements.Select(cd => cd.ToString()))}])";
+            return $"MethodDecl({MethodModifier?.ToString()}, {Name}, {ReturnType.ToString()}, " +
+                $"[{string.Join(", ", Params.Select(cd => cd.ToString()))}], " +
+                $"[{string.Join(", ", Decls.Select(cd => cd.ToString()))}], " +
+                $"[{string.Join(", ", Statements.Select(cd => cd.ToString()))}])";
         }
     }
 
@@ -84,7 +87,7 @@
     {
         public override string ToString()
         {
-            return $"CallExpression({Obj?.ToString()}, {Method?.ToString()}, {Params?.ToString()})";
+            return $"CallExpression({Obj?.ToString()}, {Method?.ToString()}, [{string.Join(", ", Params.Select(cd => cd.ToString()))}])";
         }
     }
 
@@ -136,6 +139,14 @@
         }
     }
 
+    public partial class ThisLiteral
+    {
+        public override string ToString()
+        {
+            return $"This()";
+        }
+    }
+
     public partial class Assign
     {
         public override string ToString()
@@ -152,11 +163,11 @@
         }
     }
 
-    public partial class CallMethod
+    public partial class CallMethodStmt
     {
         public override string ToString()
         {
-            return $"CallMethod({Obj?.ToString()}, {Method?.ToString()}, {Params?.ToString()})";
+            return $"CallMethod({Obj?.ToString()}, {Method?.ToString()}, [{string.Join(", ", Params.Select(cd => cd.ToString()))}])";
         }
     }
 
@@ -212,7 +223,7 @@
     {
         public override string ToString()
         {
-            return "ClassType";
+            return $"ClassType({ClassName.Name})";
         }
     }
 }

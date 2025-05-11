@@ -2,6 +2,6 @@
 {
     public class IllegalEscapeException : Exception
     {
-        public IllegalEscapeException(string text) : base($"Illegal escape sequence: {text}") { }
+        public IllegalEscapeException(string text, int line, int col) : base($"Illegal escape sequence: {text} at {line}:{col}") { }
     }
 }

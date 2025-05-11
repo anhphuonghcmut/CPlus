@@ -16,8 +16,25 @@ field_decl: (PUBLIC | PRIVATE)? var_decl;
 var_decl: IMMUTABLE? data_type attribute SM;
 
 
-method_decl: (PUBLIC | PRIVATE)? (data_type | VOID) ID LB parameter RB method_body;
+method_decl: (PUBLIC | PRIVATE)? (data_type | VOID) ID LB parameter? RB method_body;
 method_body: LP var_decl* statement* RP;
+
+
+/****************************************************************************/
+/*																	 		*/
+/*								6.Statements 								*/
+/* 																			*/
+/****************************************************************************/
+
+statement: 
+    assignment_statement
+	| return_statement
+	| method_invocation_statement;
+assignment_statement: (ID | expr9) ASSIGN expr SM;
+return_statement: RETURN expr? SM;
+method_invocation_statement: member_access SM;
+member_access: (ID | expr) DOT ID LB list_of_expr? RB;
+
 
 
 /****************************************************************************/
@@ -32,32 +49,18 @@ expr: expr3 (EQUAL | NOT_EQUAL) expr3 | expr3;
 expr3: expr3 ( ADD | SUB) expr4 | expr4;
 expr4: expr4 (MUL | DIV) expr6 | expr6; // | MOD | INT_DIV not support yet
 expr6: NOT expr6 | expr7;
-expr7: ( ADD | SUB) expr7 | expr8;
-expr8: expr9 LSB expr RSB | expr9;
+expr7: ( ADD | SUB) expr7 | expr9;
+//expr8: expr9 LSB expr RSB | expr9; // array index access, not support yet
 expr9:
-	expr9 DOT ID (LB list_of_expr? RB)? // Method call
-	| ID DOT ID (LB list_of_expr? RB)?  // Method call
+	expr9 DOT ID (LB list_of_expr? RB)? // Method call or Access to a field
 	| expr10;
 //expr10: NEW ID LB (list_of_expr)? RB expr10? | expr11; // TODO: handle constructor
-expr10: NEW ID LB RB expr10? | expr11;
+expr10: NEW ID LB RB | expr11;
 //expr11: LB expr RB | ID | literal | THIS | NIL;
-expr11: LB expr RB | ID | literal;
+expr11: LB expr RB | ID | literal | THIS;
 list_of_expr: expr (CM expr)*;
 
-/****************************************************************************/
-/*																	 		*/
-/*								6.Statements 								*/
-/* 																			*/
-/****************************************************************************/
 
-statement: 
-    assignment_statement
-	| return_statement
-	| method_invocation_statement;
-assignment_statement: (ID | expr8) ASSIGN expr SM;
-return_statement: RETURN expr SM;
-method_invocation_statement: member_access SM;
-member_access: (ID | expr) DOT ID LB list_of_expr? RB;
 
 
 /****************************************************************************/
@@ -79,8 +82,8 @@ class_type: ID; //test
 /****************************************************************************/
 
 attribute: ID (ASSIGN expr)?;
-parameter: data_type ID parameter_list* |;
-parameter_list: SM data_type ID;
+parameter: data_type ID parameter_list*;
+parameter_list: CM data_type ID;
 
 
 /****************************************************************************/
@@ -106,6 +109,7 @@ NEW: 'new';
 STRING: 'string';
 RETURN: 'return';
 VOID: 'void';
+THIS: 'this';
 
 /****** OPERATORS *****/
 ADD: '+';
@@ -148,14 +152,14 @@ ID: [_a-zA-Z][_a-zA-Z0-9]*;
 UNCLOSE_STRING
     : '"' STR_CHAR*
       {
-          throw new UncloseStringException(Text);
+          throw new UncloseStringException(Text, Line, Column);
       }
     ;
 
 ILLEGAL_ESCAPE
     : '"' STR_CHAR* ESC_ILLEGAL
       {
-          throw new IllegalEscapeException(Text);
+          throw new IllegalEscapeException(Text, Line, Column);
       }
     ;
 
@@ -173,5 +177,5 @@ NEWLINE: '\n'+ -> skip;
 // Skip sapces, tabs, newlines
 ERROR_CHAR:
 	. {
-		throw new ErrorTokenException(this.Text);
+		throw new ErrorTokenException(Text, Line, Column);
 	};

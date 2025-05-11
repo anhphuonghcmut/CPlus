@@ -1,19 +1,24 @@
-﻿class A { 
-	public void Test {} 
-	private int abc {}
+﻿class ABC123 { 
+	public void Test13 () { int x = "abc"; abc.nd(); } 
+	private void Test13 () { string abc111 = aaa.call(1., "abcbc", false, 212.48, new Square()); } 
+	private int abc ()  { abc.NN = 8; return new Shape();}
+	string a12bc  (int a, float b) { immut Shape a = new Square(); return true;} # what the fuck?
+
+	public immut string a = 10;
+	public immut string a = 10;
+
+	void Test() {
+		int a = 3 + 4 * -55;
+	}
+	void tets(int a, float b) {
+		int a = this.b;
+		return;
+		
+	}
 }
 
-class ABC { 
-	public void Test13 {} 
-	private int abc {}
-	bool abc {}
+class bcbcb {
+	public Shape abbc () {
+		return A;
+	}	
 }
-
-class ABC123 { 
-	public void Test13 {} 
-	private void Test13 {} 
-	private int abc {}
-	string a12bc {}
-}
-
-class empty {}
