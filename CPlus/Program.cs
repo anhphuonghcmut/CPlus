@@ -2,6 +2,9 @@
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using CPlusAST;
+using CPlus.SematicChecker;
+using CPlus.Exceptions.StaticErrors;
+using CPlus.Exceptions;
 
 public class Program
 {
@@ -23,16 +26,65 @@ public class Program
 
         try
         {
-            var generateAST = GenerateAST(filePath);
-            Console.WriteLine(generateAST.ToString());
+            var generatedAST = GenerateAST(filePath);
+            var checker = new SematicChecker();
+            checker.Visit(generatedAST, new CompileEnviroment());
         }
-        catch (Exception ex) { 
-            Console.WriteLine(ex.Message);
+        catch (ParseException e)
+        {
+            Console.WriteLine($"Syntax error: {e.Message}");
+            return;
         }
+        catch (ErrorTokenException e)
+        {
+            Console.WriteLine($"Lexer error: {e.Message}");
+            return;
+        }
+        catch (RedeclaredException e)
+        {
+            Console.WriteLine($"Redeclaration error: {e.Message}");
+            return;
+        }
+        catch (UndeclaredException e)
+        {
+            Console.WriteLine($"Undeclared error: {e.Message}");
+            return;
+        }
+        catch (CannotAssignToConstantException e)
+        {
+            Console.WriteLine($"Constant assignment error: {e.Message}");
+            return;
+        }
+        catch (TypeMismatchInStatementException e)
+        {
+            Console.WriteLine($"Type mismatch in statement: {e.Message}");
+            return;
+        }
+        catch (TypeMismatchInExpressionException e)
+        {
+            Console.WriteLine($"Type mismatch in expression: {e.Message}");
+            return;
+        }
+        catch (IllegalConstantExpressionException e)
+        {
+            Console.WriteLine($"Illegal constant expression: {e.Message}");
+            return;
+        }
+        catch (IllegalMemberAccessException e)
+        {
+            Console.WriteLine($"Illegal member access: {e.Message}");
+            return;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Unexpected error: {e.Message}");
+            return;
+        }
+        Console.WriteLine("Compiled successfully!");
         Console.ReadKey();
     }
 
-    public static AST GenerateAST(string filePath)
+    public static CPlusAST.Program GenerateAST(string filePath)
     {
         var inputStream = new AntlrFileStream(filePath);
 
@@ -45,6 +97,6 @@ public class Program
         IParseTree tree = parser.program();
         var visitor = new CPlusASTVisitor();
         var program = visitor.Visit(tree);
-        return program;
+        return (CPlusAST.Program)program;
     }
 }

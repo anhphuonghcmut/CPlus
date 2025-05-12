@@ -1,5 +1,5 @@
-﻿class ABC123 { 
-	int a = 0;
-	void 1an () {}
-	int b = "12312" + 5. + !(1 + !false);
+﻿class a {
+}
+
+class a {
 }

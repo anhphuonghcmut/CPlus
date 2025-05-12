@@ -1,4 +1,6 @@
-﻿namespace CPlusAST
+﻿using CPlus.SematicChecker;
+
+namespace CPlusAST
 {
     public abstract class AST
     {
@@ -33,11 +35,11 @@
         public IEnumerable<Member> Members { get; set; }
     }
 
-    public partial class Modifier : AST { }
+    public abstract partial class Modifier : AST { }
     public partial class PublicModifier : Modifier { }
     public partial class PrivateModifier : Modifier { }
 
-    public partial class Member : AST { }
+    public abstract partial class Member : AST { }
 
     public partial class FieldDecl : Member
     {
@@ -70,7 +72,7 @@
 
     }
 
-    public partial class StoreDecl : AST { }
+    public abstract partial class StoreDecl : AST { }
     public partial class VarDecl : StoreDecl
     {
         public VarDecl(DataType dataType, ID name, Expression value)
@@ -99,9 +101,9 @@
 
 
 
-    public partial class Statement : AST { }
-    public partial class Expression : Statement { }
-    public partial class LHS : Expression { } // Left hand side
+    public abstract partial class Statement : AST { }
+    public abstract partial class Expression : Statement { }
+    public abstract partial class LHS : Expression { } // Left hand side
 
 
 
@@ -164,7 +166,7 @@
 
 
 
-    public partial class Literal : Expression { }
+    public abstract partial class Literal : Expression { }
 
     public partial class IntLiteral : Literal 
     {
@@ -249,7 +251,7 @@
 
 
 
-    public partial class DataType : AST { }
+    public abstract partial class DataType : AST { }
     public partial class IntType : DataType { }
     public partial class FloatType : DataType { }
     public partial class BooleanType : DataType { }
