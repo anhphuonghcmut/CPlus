@@ -1,0 +1,6 @@
+﻿class a {
+	private void test () {
+		immut int a = (new AST()).abc;
+		float b = abc.call(1, 2.2, 6 + false, (new AST()).abc("string") - 7);
+	}
+}

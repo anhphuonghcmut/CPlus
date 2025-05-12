@@ -1,0 +1,9 @@
+﻿class a {
+	int a;
+	float b;
+	private void test () {}
+	immut string abc;
+	public boolean cba;
+	public int test2 () {}
+	public immut string oooo;
+}

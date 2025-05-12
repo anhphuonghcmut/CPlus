@@ -1,19 +1,22 @@
-﻿class A { 
-	public void Test {} 
-	private int abc {}
-}
+﻿class a						{}
 
-class ABC { 
-	public void Test13 {} 
-	private int abc {}
-	bool abc {}
-}
+class b
 
-class ABC123 { 
-	public void Test13 {} 
-	private void Test13 {} 
-	private int abc {}
-	string a12bc {}
-}
 
-class empty {}
+
+{}
+
+class c {
+
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -1,5 +1,13 @@
 ﻿class A { 
-	void test () {}
+	void test (int a, float b, string c) {
+	
+	
+			Console.Log(1, 2, new aA(), false, "12", abc.h);
+
+			ahcb.hhh = 10;
+			a = (new Car()).ah;
+	
+	}
 	string a = 10;
 	Shape test () {}
 	boolean a = 13.;

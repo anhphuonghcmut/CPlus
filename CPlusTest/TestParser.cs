@@ -13,7 +13,8 @@ namespace CPlusTest
         }
 
         [TestCase("test1.txt", TestName = "TestCheckTestsShouldRun")]
-        [TestCase("test2.txt", TestName = "TestMemberDecls")]
+        [TestCase("test2.txt", TestName = "TestComplex")]
+        [TestCase("test3.txt", TestName = "TestMemberDecls")]
         public void TestCases(string filename)
         {
             var inputStream = new AntlrFileStream($"./ParserTests/{filename}");

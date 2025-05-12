@@ -1,0 +1,6 @@
+﻿class A { 
+	void test () {}
+	string a = 10;
+	Shape test () {}
+	boolean a = 13.;
+}

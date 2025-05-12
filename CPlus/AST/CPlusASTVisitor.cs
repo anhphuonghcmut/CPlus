@@ -212,7 +212,7 @@ namespace CPlus
         }
         public override AST VisitAssignment_statement([NotNull] CPlusParser.Assignment_statementContext context)
         {
-            var lhs = context.ID() == null ? (LHS)Visit(context.expr9()) : (LHS)Visit(context.ID());
+            var lhs = context.ID() == null ? (LHS)Visit(context.expr9()) : new ID(context.ID().GetText());
 
             return new Assign(lhs, (Expression)Visit(context.expr()));
         }
