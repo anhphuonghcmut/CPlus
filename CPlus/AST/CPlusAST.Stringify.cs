@@ -36,7 +36,7 @@
     {
         public override string ToString()
         {
-            return $"FieldDecl({MethodModifier?.ToString()}, {Decl?.ToString()})";
+            return $"FieldDecl({FieldModifier?.ToString()}, {Decl?.ToString()})";
         }
     }
 

@@ -16,7 +16,7 @@
     {
         public override string ToString()
         {
-            return "Class";
+            return "Method";
         }
     }
 
@@ -24,7 +24,7 @@
     {
         public override string ToString()
         {
-            return "Class";
+            return "Attribute";
         }
     }
 
@@ -32,7 +32,7 @@
     {
         public override string ToString()
         {
-            return "Class";
+            return "Variable";
         }
     }
 
@@ -40,7 +40,7 @@
     {
         public override string ToString()
         {
-            return "Class";
+            return "Constant";
         }
     }
 
@@ -48,7 +48,7 @@
     {
         public override string ToString()
         {
-            return "Class";
+            return "Identifier";
         }
     }
 
@@ -56,7 +56,7 @@
     {
         public override string ToString()
         {
-            return "Class";
+            return "Parameter";
         }
     }
 }

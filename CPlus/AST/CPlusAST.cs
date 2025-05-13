@@ -43,12 +43,12 @@ namespace CPlusAST
 
     public partial class FieldDecl : Member
     {
-        public FieldDecl(Modifier methodModifier, StoreDecl decl)
+        public FieldDecl(Modifier fieldModifier, StoreDecl decl)
         {
-            MethodModifier = methodModifier;
+            FieldModifier = fieldModifier;
             Decl = decl;
         }
-        public Modifier MethodModifier { get; set; }
+        public Modifier FieldModifier { get; set; }
         public StoreDecl Decl { get; set; }
     }
 
@@ -72,10 +72,8 @@ namespace CPlusAST
 
     }
 
-    public abstract partial class StoreDecl : AST { }
-    public partial class VarDecl : StoreDecl
-    {
-        public VarDecl(DataType dataType, ID name, Expression value)
+    public abstract partial class StoreDecl : AST {
+        public StoreDecl(DataType dataType, ID name, Expression value)
         {
             DataType = dataType;
             Name = name;
@@ -84,19 +82,19 @@ namespace CPlusAST
         public DataType DataType { get; set; }
         public ID Name { get; set; }
         public Expression? Value { get; set; }
+    }
+    public partial class VarDecl : StoreDecl
+    {
+        public VarDecl(DataType dataType, ID name, Expression value) : base(dataType, name, value)
+        {
+        }
 
     }
     public partial class ConstDecl : StoreDecl
     {
-        public ConstDecl(DataType dataType, ID name, Expression value)
+        public ConstDecl(DataType dataType, ID name, Expression value) : base(dataType, name, value)
         {
-            DataType = dataType;
-            Name = name;
-            Value = value;
         }
-        public DataType DataType { get; set; }
-        public ID Name { get; set; }
-        public Expression? Value { get; set; }
     }
 
 

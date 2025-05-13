@@ -1,4 +1,6 @@
-﻿using CPlusAST;
+﻿using CPlus.Exceptions;
+using CPlus.Exceptions.StaticErrors;
+using CPlusAST;
 
 namespace CPlus.SematicChecker
 {
@@ -25,6 +27,11 @@ namespace CPlus.SematicChecker
         public DataType Visit(ClassDecl node, CompileEnviroment env)
         {
             env.CurrentClass = env.SymbolTable.LookupClass(node.Name.Name, node.Line, node.Column);
+            foreach (var mem in node.Members) { 
+                mem.Accept(this, env);
+            }
+            env.CurrentClass = null;
+
             return null;
         }
 
@@ -40,12 +47,33 @@ namespace CPlus.SematicChecker
 
         public DataType Visit(FieldDecl node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            if (env.CurrentClass.Members.ContainsKey(node.Decl.Name.Name))
+            {
+                throw new RedeclaredException(new Exceptions.Attribute(), node.Decl.Name.Name, node.Line, node.Column);
+            }
+            var fieldSymbol = new Symbol(
+                node.Decl.Name.Name,
+                node.Decl.DataType,
+                node.Decl is ConstDecl,
+                node.FieldModifier is PublicModifier);
+            env.CurrentClass.Members.Add(node.Decl.Name.Name, fieldSymbol);
+            return null;
         }
 
         public DataType Visit(MethodDecl node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            if (env.CurrentClass.Members.ContainsKey(node.Name.Name))
+            {
+                throw new RedeclaredException(new Method(), node.Name.Name, node.Line, node.Column);
+            }
+            var fieldSymbol = new Symbol(
+                node.Name.Name,
+                node.ReturnType,
+                isPublic: node.MethodModifier is PublicModifier,
+                parameters: node.Params);
+            env.CurrentClass.Members.Add(node.Name.Name, fieldSymbol);
+
+            return null;
         }
 
         public DataType Visit(VarDecl node, CompileEnviroment env)

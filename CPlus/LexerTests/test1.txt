@@ -1,5 +1,15 @@
 ﻿class a {
+	public immut int a;
+
+	private float b;
+
+	int test() {
+	}
+
+
+	public string abvv (int a, int b) {}
 }
 
-class a {
+class b {
+	int abvv () {}
 }
