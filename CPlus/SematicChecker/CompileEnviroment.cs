@@ -21,14 +21,22 @@ namespace CPlus.SematicChecker
         public DataType Type { get; }
         public bool IsImmutable { get; }
         public bool IsPublic { get; }
-        public IEnumerable<VarDecl> Parameters { get; }
 
-        public Symbol(string name, DataType type, bool isImmutable = false, bool isPublic = true, IEnumerable<VarDecl> parameters = null)
+        public Symbol(string name, DataType type, bool isImmutable = false, bool isPublic = true)
         {
             Name = name;
             Type = type;
             IsImmutable = isImmutable;
             IsPublic = isPublic;
+        }
+    }
+
+    public class MethodSymbol : Symbol
+    {
+        public IEnumerable<VarDecl> Parameters { get; }
+        public MethodSymbol(string name, DataType type, bool isPublic = true, IEnumerable<VarDecl> parameters = null) 
+            : base(name, type, true, isPublic)
+        {
             Parameters = parameters ?? new List<VarDecl>();
         }
     }
@@ -78,7 +86,9 @@ namespace CPlus.SematicChecker
         {
             var currentScope = scopes.Peek();
             if (currentScope.ContainsKey(symbol.Name))
+            {
                 throw new RedeclaredException(symbol.IsImmutable ? new Constant() : new Variable(), symbol.Name, line, column);
+            }
             currentScope[symbol.Name] = symbol;
         }
 

@@ -1,5 +1,6 @@
 ﻿using CPlus.Exceptions;
 using CPlus.Exceptions.StaticErrors;
+using CPlus.Helpers;
 using CPlusAST;
 
 namespace CPlus.SematicChecker
@@ -8,19 +9,13 @@ namespace CPlus.SematicChecker
     {
         public DataType Visit(CPlusAST.Program node, CompileEnviroment env)
         {
-            // Collect data of classes
-            foreach(var classDecl in node.ClassDecls)
-            {
-                var classSymbol = new ClassSymbol(classDecl.Name.Name);
-                env.SymbolTable.AddClass(classDecl.Name.Name, classSymbol);
-            }
-
+            var getEnvVisitor = new GetEnv();
+            getEnvVisitor.Visit(node, env);
             // Handle class members
             foreach(var classDecl in node.ClassDecls)
             {
                 classDecl.Accept(this, env);
             }
-
             return null;
         }
 
@@ -47,43 +42,43 @@ namespace CPlus.SematicChecker
 
         public DataType Visit(FieldDecl node, CompileEnviroment env)
         {
-            if (env.CurrentClass.Members.ContainsKey(node.Decl.Name.Name))
-            {
-                throw new RedeclaredException(new Exceptions.Attribute(), node.Decl.Name.Name, node.Line, node.Column);
-            }
-            var fieldSymbol = new Symbol(
-                node.Decl.Name.Name,
-                node.Decl.DataType,
-                node.Decl is ConstDecl,
-                node.FieldModifier is PublicModifier);
-            env.CurrentClass.Members.Add(node.Decl.Name.Name, fieldSymbol);
+            node.Decl.Accept(this, env);
             return null;
         }
 
         public DataType Visit(MethodDecl node, CompileEnviroment env)
         {
-            if (env.CurrentClass.Members.ContainsKey(node.Name.Name))
+            env.CurrentMethod = node;
+            env.SymbolTable.EnterScope();
+            foreach(var par in node.Params)
             {
-                throw new RedeclaredException(new Method(), node.Name.Name, node.Line, node.Column);
+                env.SymbolTable.AddSymbol(new Symbol(par.Name.Name, par.DataType), par.Line, par.Column);
             }
-            var fieldSymbol = new Symbol(
-                node.Name.Name,
-                node.ReturnType,
-                isPublic: node.MethodModifier is PublicModifier,
-                parameters: node.Params);
-            env.CurrentClass.Members.Add(node.Name.Name, fieldSymbol);
-
+            foreach(var decl in node.Decls)
+            {
+                decl.Accept(this, env);
+            }
+            //foreach(var stmt in node.Statements)
+            //{
+            //    stmt.Accept(this, env);
+            //}
+            env.SymbolTable.ExitScope();
+            env.CurrentMethod = null;
             return null;
         }
 
         public DataType Visit(VarDecl node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public DataType Visit(ConstDecl node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            if (!CheckerHelper.IsConstantExpression(node.Value, env))
+            {
+                throw new IllegalConstantExpressionException(node.Name.Name, node.Value.ToString(), node.Line, node.Column);
+            }
+            return null;
         }
 
         public DataType Visit(Assign node, CompileEnviroment env)
