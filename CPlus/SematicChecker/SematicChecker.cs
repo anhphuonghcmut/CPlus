@@ -1,4 +1,5 @@
-﻿using CPlus.Exceptions;
+﻿using Antlr4.Runtime.Misc;
+using CPlus.Exceptions;
 using CPlus.Exceptions.StaticErrors;
 using CPlus.Helpers;
 using CPlusAST;
@@ -48,20 +49,30 @@ namespace CPlus.SematicChecker
 
         public DataType Visit(MethodDecl node, CompileEnviroment env)
         {
+            if (node.ReturnType is ClassType classType)
+            {
+                env.SymbolTable.LookupClass(classType.ClassName.Name, node.Line, node.Column);
+            }
             env.CurrentMethod = node;
             env.SymbolTable.EnterScope();
             foreach(var par in node.Params)
             {
-                env.SymbolTable.AddSymbol(new Symbol(par.Name.Name, par.DataType), par.Line, par.Column);
+                env.SymbolTable.AddParamSymbol(new Symbol(par.Name.Name, par.DataType), par.Line, par.Column);
             }
             foreach(var decl in node.Decls)
             {
                 decl.Accept(this, env);
             }
-            //foreach(var stmt in node.Statements)
-            //{
-            //    stmt.Accept(this, env);
-            //}
+
+            // Expect for void, method must return
+            if (node.Statements.Where(s => s is Return).Count() < 1)
+            {
+                throw new TypeMismatchInStatementException("Method must return", node.ReturnType?.ToString(), "None", node.Line, node.Column);
+            }
+            foreach (var stmt in node.Statements)
+            {
+                stmt.Accept(this, env);
+            }
             env.SymbolTable.ExitScope();
             env.CurrentMethod = null;
             return null;
@@ -69,14 +80,39 @@ namespace CPlus.SematicChecker
 
         public DataType Visit(VarDecl node, CompileEnviroment env)
         {
+            if (node.DataType is ClassType classType)
+            {
+                env.SymbolTable.LookupClass(classType.ClassName.Name, node.Line, node.Column);
+            }
+            
+            // For FieldDecl, only checking type, not save symbol to scope stack
+            if (env.CurrentMethod != null)
+            {
+                env.SymbolTable.AddSymbol(new Symbol(node.Name.Name, node.DataType), node.Line, node.Column);
+            }
+
+            if (node.Value != null)
+            {
+                //var valueType = node.Value.Accept(this, env);
+
+            }
             return null;
         }
 
         public DataType Visit(ConstDecl node, CompileEnviroment env)
         {
+            if (node.DataType is ClassType classType)
+            {
+                env.SymbolTable.LookupClass(classType.ClassName.Name, node.Line, node.Column);
+            }
+
+            // For FieldDecl, only checking type, not save symbol to scope stack
+            if (env.CurrentMethod != null) { 
+                env.SymbolTable.AddSymbol(new Symbol(node.Name.Name, node.DataType, isImmutable: true), node.Line, node.Column);
+            }
             if (!CheckerHelper.IsConstantExpression(node.Value, env))
             {
-                throw new IllegalConstantExpressionException(node.Name.Name, node.Value.ToString(), node.Line, node.Column);
+                throw new IllegalConstantExpressionException(node.Name.Name, node.Value?.ToString(), node.Line, node.Column);
             }
             return null;
         }
@@ -88,7 +124,13 @@ namespace CPlus.SematicChecker
 
         public DataType Visit(Return node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            var returnType = env.CurrentMethod.ReturnType;
+            var expectedType = node.Expression.Accept(this, env);
+            if(!CheckerHelper.CanAssign(returnType, expectedType, env))
+            {
+                throw new TypeMismatchInStatementException("Return", expectedType.ToString(), returnType.ToString(), node.Line, node.Column);
+            }
+            return null;
         }
 
         public DataType Visit(CallMethodStmt node, CompileEnviroment env)

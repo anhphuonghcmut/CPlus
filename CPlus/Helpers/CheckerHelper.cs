@@ -1,6 +1,5 @@
 ﻿using CPlus.SematicChecker;
 using CPlusAST;
-using System.IO;
 
 namespace CPlus.Helpers
 {
@@ -22,8 +21,9 @@ namespace CPlus.Helpers
                     if (env.CurrentClass.Members.TryGetValue(id.Name, out var fieldSymbol))
                     {
                         return fieldSymbol.IsImmutable;
-                    } 
-                    else {
+                    }
+                    else
+                    {
                         // Find in scope
                         var symbol = env.SymbolTable.Lookup(id.Name, id.Line, id.Column);
                         return symbol.IsImmutable;
@@ -36,10 +36,27 @@ namespace CPlus.Helpers
                     var classId = (ID)fieldAccess.Obj;
                     var classSymbol = env.SymbolTable.LookupClass(classId.Name, classId.Line, classId.Column);
                     fieldSymbol = classSymbol.Members[fieldAccess.FieldName.Name];
-                    return fieldSymbol.IsImmutable; 
+                    return fieldSymbol.IsImmutable;
 
                 default: return false;
             }
+        }
+
+        public static bool CanAssign(DataType fromType, DataType toType, CompileEnviroment env)
+        {
+            if (fromType is StringType && toType is StringType)
+            {
+                return true;
+            }
+            else if (fromType is BooleanType && toType is BooleanType)
+            {
+                return true;
+            }
+            else if (fromType is ClassType a && toType is ClassType b)
+            {
+                return a.ClassName.Name == b.ClassName.Name;
+            }
+            return true;
         }
     }
 }

@@ -92,6 +92,16 @@ namespace CPlus.SematicChecker
             currentScope[symbol.Name] = symbol;
         }
 
+        public void AddParamSymbol(Symbol symbol, int line, int column)
+        {
+            var currentScope = scopes.Peek();
+            if (currentScope.ContainsKey(symbol.Name))
+            {
+                throw new RedeclaredException(new Parameter(), symbol.Name, line, column);
+            }
+            currentScope[symbol.Name] = symbol;
+        }
+
         public Symbol Lookup(string name, int line, int column)
         {
             foreach (var scope in scopes)
