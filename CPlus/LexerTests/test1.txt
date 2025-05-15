@@ -10,16 +10,16 @@
 	}
 
 
-	public string abvv (int a, int b) {return;}
+	public string abvv (int a, int b) {return "abc";}
 }
 
 class b {
 	immut int a = 10;
-	int abvv (int a, float b) {
+	float abvv (int a, float b) {
 		immut string gg = 6 + a.c;
 		Shape abc;
 
-		return ;
+		return 1.1 + 2;
 	}
 }
 
