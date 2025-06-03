@@ -1,5 +1,6 @@
 ﻿using CPlus.SematicChecker;
 using CPlusAST;
+using System;
 
 namespace CPlus.Helpers
 {
@@ -56,7 +57,19 @@ namespace CPlus.Helpers
             {
                 return a.ClassName.Name == b.ClassName.Name;
             }
-            return true;
+            else if (fromType is IntType && toType is IntType)
+            {
+                return true;
+            }
+            else if (fromType is FloatType && toType is FloatType)
+            {
+                return true;
+            }
+            else if (fromType is FloatType && toType is IntType)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

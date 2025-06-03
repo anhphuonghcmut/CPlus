@@ -3,6 +3,7 @@ using CPlus.Exceptions;
 using CPlus.Exceptions.StaticErrors;
 using CPlus.Helpers;
 using CPlusAST;
+using System;
 
 namespace CPlus.SematicChecker
 {
@@ -125,6 +126,18 @@ namespace CPlus.SematicChecker
         public DataType Visit(Return node, CompileEnviroment env)
         {
             var returnType = env.CurrentMethod.ReturnType;
+            if (env.CurrentMethod.ReturnType is VoidType && node.Expression != null)
+            {
+                throw new TypeMismatchInStatementException("Return", "Void", "Not-Void", node.Line, node.Column);
+            }
+            else if (env.CurrentMethod.ReturnType is VoidType && node.Expression == null)
+            {
+                return null;
+            }
+            else if (node.Expression == null)
+            {
+                throw new TypeMismatchInStatementException("Return", returnType.ToString(), "Void", node.Line, node.Column);
+            }
             var expectedType = node.Expression.Accept(this, env);
             if(!CheckerHelper.CanAssign(returnType, expectedType, env))
             {
@@ -135,17 +148,57 @@ namespace CPlus.SematicChecker
 
         public DataType Visit(CallMethodStmt node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            DataType classExpr = null;
+            if (node.Obj is ID id)
+            {
+                var symbol = env.SymbolTable.Lookup(id.Name, id.Line, id.Column);
+                classExpr = symbol.Type;
+            }
+            else
+            {
+                classExpr = node.Obj.Accept(this, env);
+            }
+
+            if (classExpr is not ClassType)
+            {
+                throw new TypeMismatchInStatementException("Method call", "Class type", classExpr.ToString(), node.Line, node.Column);
+            }
+
+            var classSymbol = env.SymbolTable.LookupClass(((ClassType)classExpr).ClassName.Name, node.Line, node.Column);
+            var methodSymbol = classSymbol.Members.FirstOrDefault(m => m.Key == node.Method.Name && m.Value is MethodSymbol).Value;
+
+            if (methodSymbol == null)
+            {
+                throw new UndeclaredException(new Method(), node.Method.Name, node.Line, node.Column);
+            }
+            else if (methodSymbol.IsPublic == false)
+            {
+                throw new IllegalMemberAccessException(new Method(), node.Method.Name, ((ClassType)classExpr).ClassName.Name, node.Line, node.Column);
+            }
+            else if (methodSymbol.Type is not VoidType)
+            {
+                throw new TypeMismatchInStatementException("Method call", "Class type", classExpr.ToString(), node.Line, node.Column);
+            }
+
+            return null;
         }
 
         public DataType Visit(BinaryOp node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            var left = node.Left.Accept(this, env);
+            var right = node.Right.Accept(this, env);
+
+            if (!CheckerHelper.CanAssign(right, left, env))
+            {
+                throw new TypeMismatchInExpressionException(node.Op, left.ToString(), right.ToString(), node.Line, node.Column);
+            }
+
+            return left;
         }
 
         public DataType Visit(UnaryOp node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            return node.Body.Accept(this, env);
         }
 
         public DataType Visit(CallExpression node, CompileEnviroment env)
@@ -165,22 +218,22 @@ namespace CPlus.SematicChecker
 
         public DataType Visit(IntLiteral node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            return new IntType();
         }
 
         public DataType Visit(FloatLiteral node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            return new FloatType();
         }
 
         public DataType Visit(StringLiteral node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            return new StringType();
         }
 
         public DataType Visit(BooleanLiteral node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            return new BooleanType();
         }
 
         public DataType Visit(ThisLiteral node, CompileEnviroment env)
