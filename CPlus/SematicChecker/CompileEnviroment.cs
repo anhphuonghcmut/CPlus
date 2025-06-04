@@ -21,13 +21,15 @@ namespace CPlus.SematicChecker
         public DataType Type { get; }
         public bool IsImmutable { get; }
         public bool IsPublic { get; }
+        public bool IsStatic { get; }
 
-        public Symbol(string name, DataType type, bool isImmutable = false, bool isPublic = true)
+        public Symbol(string name, DataType type, bool isImmutable = false, bool isPublic = true, bool isStatic = false)
         {
             Name = name;
             Type = type;
             IsImmutable = isImmutable;
             IsPublic = isPublic;
+            IsStatic = isStatic; // for static access fields and methods, not used yet
         }
     }
 
@@ -38,6 +40,14 @@ namespace CPlus.SematicChecker
             : base(name, type, true, isPublic)
         {
             Parameters = parameters ?? new List<VarDecl>();
+        }
+    }
+
+    // Present an identifier for class (when call static field or method)
+    public class ClassTypeSymbol : Symbol
+    {
+        public ClassTypeSymbol(string name) : base(name, new VoidType())
+        {
         }
     }
 

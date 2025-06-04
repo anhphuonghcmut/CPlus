@@ -226,4 +226,12 @@
             return $"ClassType({ClassName.Name})";
         }
     }
+
+    public partial class StaticAccessPrefixType
+    {
+        public override string ToString()
+        {
+            return $"StaticAccessPrefixType({PrefixName.Name})";
+        }
+    }
 }

@@ -19,8 +19,9 @@ class b {
 		immut string gg = 6 + a.c;
 		Shape abc;
 
-		return 1.1 + 2;
+		return 1 + 2;
 	}
+	void ahbb () {}
 }
 
 

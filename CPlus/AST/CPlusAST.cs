@@ -263,4 +263,14 @@ namespace CPlusAST
 
         public ID ClassName { get; set; }
     }
+
+    public partial class StaticAccessPrefixType : DataType
+    {
+        public StaticAccessPrefixType(ID prefixName)
+        {
+            PrefixName = prefixName;
+        }
+
+        public ID PrefixName { get; set; }
+    }
 }

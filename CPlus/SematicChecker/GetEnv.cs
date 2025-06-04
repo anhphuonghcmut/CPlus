@@ -186,5 +186,10 @@ namespace CPlus.SematicChecker
         {
             throw new NotImplementedException();
         }
+
+        public CompileEnviroment Visit(StaticAccessPrefixType node, CompileEnviroment env)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -65,10 +65,22 @@ namespace CPlus.SematicChecker
                 decl.Accept(this, env);
             }
 
+
             // Expect for void, method must return
-            if (node.Statements.Where(s => s is Return).Count() < 1)
+            if (node.ReturnType is not VoidType)
             {
-                throw new TypeMismatchInStatementException("Method must return", node.ReturnType?.ToString(), "None", node.Line, node.Column);
+                var hasReturnInAllPaths = false;
+                foreach (var stmt in node.Statements)
+                {
+                    if (CheckerHelper.HasReturnInAllPaths(stmt))
+                    {
+                        hasReturnInAllPaths |= true;
+                    }
+                }
+                if (!hasReturnInAllPaths)
+                {
+                    throw new TypeMismatchInStatementException("Method must return", node.ReturnType?.ToString(), "None", node.Line, node.Column);
+                }
             }
             foreach (var stmt in node.Statements)
             {
@@ -238,12 +250,13 @@ namespace CPlus.SematicChecker
 
         public DataType Visit(ThisLiteral node, CompileEnviroment env)
         {
-            throw new NotImplementedException();
+            return new ClassType(new ID(env.CurrentClass.Name));
         }
 
         public DataType Visit(ID node, CompileEnviroment env)
         {
             throw new NotImplementedException();
+            // First find in class
         }
 
         public DataType Visit(IntType node, CompileEnviroment env)
@@ -272,6 +285,11 @@ namespace CPlus.SematicChecker
         }
 
         public DataType Visit(ClassType node, CompileEnviroment env)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DataType Visit(StaticAccessPrefixType node, CompileEnviroment env)
         {
             throw new NotImplementedException();
         }

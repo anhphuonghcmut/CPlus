@@ -232,4 +232,12 @@ namespace CPlusAST
             return visitor.Visit(this, env);
         }
     }
+
+    public partial class StaticAccessPrefixType
+    {
+        public override TResult Accept<TResult>(IASTVisitor<TResult> visitor, CompileEnviroment env)
+        {
+            return visitor.Visit(this, env);
+        }
+    }
 }

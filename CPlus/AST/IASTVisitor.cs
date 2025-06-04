@@ -32,5 +32,6 @@ namespace CPlusAST
         TResult Visit(StringType node, CompileEnviroment env);
         TResult Visit(VoidType node, CompileEnviroment env);
         TResult Visit(ClassType node, CompileEnviroment env);
+        TResult Visit(StaticAccessPrefixType node, CompileEnviroment env);
     }
 }

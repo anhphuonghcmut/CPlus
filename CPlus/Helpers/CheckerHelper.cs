@@ -71,5 +71,17 @@ namespace CPlus.Helpers
             }
             return false;
         }
+
+        public static bool HasReturnInAllPaths(AST node)
+        {
+            // TODO: expand the method if we ever support other typeof blocks (If-Else, While, For, Block)
+            switch (node)
+            {
+                case Return:
+                    return true;
+                default: 
+                    return false;
+            }
+        }
     }
 }
